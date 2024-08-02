@@ -1,0 +1,8 @@
+.container {
+    width: 120vh;
+    height: 20vh;
+    border: 1px solid red;
+    display: flex;
+    background-color: black;
+    /* justify-content: space-around; */
+}
