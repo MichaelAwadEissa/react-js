@@ -1,16 +1,13 @@
 img {
     height: 400px;
+
 }
 
-/* #image_container {
-    display: flex;
+#image-container {
     position: relative;
-    z-index: 1;
 }
 
-#download_button {
+#hero-text {
     position: absolute;
-    bottom: 10px;
-    left: 10px;
-    z-index: 2;
-} */
+    top: 50px;
+    }

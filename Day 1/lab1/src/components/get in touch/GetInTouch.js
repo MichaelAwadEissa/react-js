@@ -1,35 +1,18 @@
 import React from 'react';
-import './GetInTouch.css' 
+import './GetInTouch.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebook } from '@fortawesome/free-brands-svg-icons';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap CSS is imported
+import 'bootstrap/dist/js/bootstrap.bundle.min'; // Ensure Bootstrap JS is imported
 
 export default function GetInTouch() {
   return (
     <>
-      <div className='container '>
+      <div className='container'>
         <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
           <li className="nav-item">
-            <a
-              className="nav-link active"
-              id="pills-home-tab"
-              data-toggle="pill"
-              href="#pills-home"
-              role="tab"
-              aria-controls="pills-home"
-              aria-selected="true"
-            >
-              Home
-            </a>
-          </li>
-          <li className="nav-item">
-            <a
-              className="nav-link"
-              id="pills-profile-tab"
-              data-toggle="pill"
-              href="#pills-profile"
-              role="tab"
-              aria-controls="pills-profile"
-              aria-selected="false"
-            >
-              Profile
+            <a className="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">
+              <FontAwesomeIcon icon={faFacebook} />
             </a>
           </li>
           <li className="nav-item">
@@ -53,6 +36,7 @@ export default function GetInTouch() {
             role="tabpanel"
             aria-labelledby="pills-home-tab"
           >
+            {/* Home tab content */}
           </div>
           <div
             className="tab-pane fade"
@@ -60,6 +44,7 @@ export default function GetInTouch() {
             role="tabpanel"
             aria-labelledby="pills-profile-tab"
           >
+            {/* Profile tab content */}
           </div>
           <div
             className="tab-pane fade"
@@ -67,6 +52,7 @@ export default function GetInTouch() {
             role="tabpanel"
             aria-labelledby="pills-contact-tab"
           >
+            {/* Contact tab content */}
           </div>
         </div>
       </div>
