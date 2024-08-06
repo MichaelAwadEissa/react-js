@@ -61,7 +61,7 @@ class Product extends Component {
         </div>
       </div>
     );
-  }
+  } 
 }
 
 export default Product;
