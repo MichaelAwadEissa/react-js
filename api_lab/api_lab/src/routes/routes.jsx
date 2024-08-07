@@ -1,22 +1,25 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter, Routes,Switch, Route } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
 
-import {lazy } from "react";
 
-const Homepage = lazy(() => import('../pages/home'));
-const NotfoundPage = lazy(() => import("../pages/NotfoundPage/NotfoundPage"));
-
+import Homepage from '../pages/home/home';
+import LogIn from '../pages/log in/logIn';
+// const NotfoundPage = lazy(() => import("../pages/NotfoundPage/NotfoundPage"));
 
 export default function AppRoute() {
-    return (
-      <>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Homepage />}>
-              </Route>
-              <Route path="/register" element={<register />} />
-              <Route path="*" element={<NotfoundPage />} />
-            </Routes>
-          </BrowserRouter>
-      </>
-    );
-  }
+  return (
+    <BrowserRouter>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/home" Component={Homepage}/>
+          <Route path="/login" Component={LogIn}/>
+
+          {/* Uncomment and use these routes as needed */}
+          {/* <Route path="/register" element={<Register />} /> */}
+          {/* <Route path="*" element={<NotfoundPage />} /> */}
+        </Routes>
+      </Suspense>
+    </BrowserRouter>
+  );
+}
