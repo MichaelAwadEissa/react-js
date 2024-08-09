@@ -1,13 +1,40 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import NavBar from '../../components/navbar/navbar';
-import Cards from '../../components/card/cards';
-import React from 'react';
+import MyCard from '../../components/card/cards';
 
 const Home = () => {
-    return <>
-     <h1>Home</h1>
-    <NavBar/>
-    <Cards/></>
-    ;
-  };
+  const [Products, setProducts] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get('https://retoolapi.dev/GEatlr/data')
+      .then((res) => {
+        setProducts(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  return (
+    <>
   
-  export default Home;
+      <h1>Home</h1>
+      <div className='d-flex justify-content-center flex-wrap gap-4'>
+      {Products.map((Product, index) => (
+        <div key={index}>
+          <MyCard
+            name={Product.name}
+            logo={Product.logo}
+            url={`/detailes/${Product.id}`}
+            btnName="View Details"
+            width="18rem"
+          />
+        </div>
+      ))}</div>
+    </>
+  );
+};
+
+export default Home;

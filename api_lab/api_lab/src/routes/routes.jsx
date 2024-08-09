@@ -1,23 +1,23 @@
-import React from 'react';
-import { BrowserRouter, Routes,Switch, Route } from 'react-router-dom';
-import { lazy, Suspense } from 'react';
-
-
+import React, { lazy, Suspense } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Register from '../pages/register/register';
+import NotfoundPage from '../pages/notfound/notfound';
+import NavBar from '../components/navbar/navbar';
+import ProdDetalies from '../components/Products/productDetailes';
 import Homepage from '../pages/home/home';
 import LogIn from '../pages/log in/logIn';
-// const NotfoundPage = lazy(() => import("../pages/NotfoundPage/NotfoundPage"));
 
 export default function AppRoute() {
   return (
     <BrowserRouter>
+      <NavBar />
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          <Route path="/" Component={Homepage}/>
-          <Route path="/login" Component={LogIn}/>
-
-          {/* Uncomment and use these routes as needed */}
-          {/* <Route path="/register" element={<Register />} /> */}
-          {/* <Route path="*" element={<NotfoundPage />} /> */}
+          <Route path="/" element={<Homepage />} />
+          <Route path="/detailes/:id" element={<ProdDetalies />} />
+          <Route path="/login" element={<LogIn />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="*" element={<NotfoundPage />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

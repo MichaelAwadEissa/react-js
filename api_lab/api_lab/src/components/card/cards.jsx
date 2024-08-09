@@ -1,20 +1,28 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
-function Cards() {
+
+function BasicExample(props) {
   return (
-    <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src="holder.js/100px180" />
+    <Card style={{ width: props.width }}>
+      <Card.Img variant="top" src={props.logo}/>
       <Card.Body>
-        <Card.Title>Card Title</Card.Title>
+        <Card.Title>{props.name}</Card.Title>
+        {props.about && <Card.Text>
+          {props.about}
+        </Card.Text>}
         <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
+          {props.location}
         </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
+        {props.size && <Card.Text>
+          number of employee:{props.size}
+        </Card.Text>}
+        {props.btnName && <Button as={Link} to={props.url} variant="primary">{props.btnName}</Button>
+ }
       </Card.Body>
     </Card>
   );
 }
 
-export default Cards;
+export default BasicExample;
