@@ -12,7 +12,7 @@ export default function AppRoute() {
     <BrowserRouter>
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          <Route path="/home" Component={Homepage}/>
+          <Route path="/" Component={Homepage}/>
           <Route path="/login" Component={LogIn}/>
 
           {/* Uncomment and use these routes as needed */}
