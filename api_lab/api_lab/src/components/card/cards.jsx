@@ -4,6 +4,13 @@ import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 
 function BasicExample(props) {
+
+  const handleAddToCart = () => {
+    if (props.onAddToCart) {
+      props.onAddToCart(props.product); // Pass the product details to the function
+    }
+  };
+
   return (
     <Card style={{ width: props.width }}>
       <Card.Img variant="top" src={props.logo}/>
@@ -18,8 +25,8 @@ function BasicExample(props) {
         {props.size && <Card.Text>
           number of employee:{props.size}
         </Card.Text>}
-        {props.btnName && <Button as={Link} to={props.url} variant="primary">{props.btnName}</Button>
- }
+        {props.btnName && <Button as={Link} to={props.url} variant="primary">{props.btnName}</Button>}
+        <Button onClick={handleAddToCart} variant="primary">Add to Cart</Button>
       </Card.Body>
     </Card>
   );

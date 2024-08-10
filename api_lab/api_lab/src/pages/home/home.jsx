@@ -17,6 +17,13 @@ const Home = () => {
       });
   }, []);
 
+
+  const [cart, setCart] = useState([]);
+
+  const handleAddToCart = (product) => {
+    setCart(prevCart => [...prevCart, product]);
+  };
+
   return (
     <>
   
@@ -30,6 +37,7 @@ const Home = () => {
             url={`/detailes/${Product.id}`}
             btnName="View Details"
             width="18rem"
+            onAddToCart={handleAddToCart}
           />
         </div>
       ))}</div>
