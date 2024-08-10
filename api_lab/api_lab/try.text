@@ -1,109 +1,4 @@
-
-//shopping cart
-
-import React, { Component } from 'react';
-import Product from './product';
-
-class ShoppingCart extends Component {
-    state = { 
-        products: [
-            {
-                id: 1,
-                name: "Product 1",
-                price: 100
-            },
-            {
-                id: 2,
-                name: "Product 2",
-                price: 200
-            },
-            {
-                id: 3,
-                name: "Product 3",
-                price: 300
-            }
-        ]
-    };
-
-handleDelete =(Product) =>{
-    //clone 
-    //edit
-    //set state
-
-  const newProducts=  this.state.products.filter(p => p.id !== Product.id);
-this.setState({products: newProducts});
-}
-handleReset =() => {
-    //clone
-    let products = [...this.state.products];
-    //edit
-    products.map(p => {
-        p.count =0;
-        return p;
-    });
-    // setState
-    this.setState({products: products});
-
-// const newProducts= this.state.products.filter(p => p.
-}
-
-
-    render() { 
-        console.log(this.props)
-        return (
-            <React.Fragment>
-                <h1>ShoppingCart</h1>
-                <button onClick={this.handleReset} className="btn btn-secondary btn-sm m-2">Reset</button>
-                {this.state.products.map(product => (
-                    <Product key={product.id}
-                    onDelete={this.handleDelete}
-                         product={product} >
-                            <h4>product.id</h4>
-                         </Product>
-                ))}
-            </React.Fragment>
-        );
-    }
-}
-
-export default ShoppingCart;
-
-
-
-//card 
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
-
-
-function BasicExample(props) {
-  return (
-    <Card style={{ width: props.width }}>
-      <Card.Img variant="top" src={props.logo}/>
-      <Card.Body>
-        <Card.Title>{props.name}</Card.Title>
-        {props.about && <Card.Text>
-          {props.about}
-        </Card.Text>}
-        <Card.Text>
-          {props.location}
-        </Card.Text>
-        {props.size && <Card.Text>
-          number of employee:{props.size}
-        </Card.Text>}
-        {props.btnName && <Button as={Link} to={props.url} variant="primary">{props.btnName}</Button>}
-        <Button as={Link} to={props.url} variant="primary">Add to Cart</Button>
-      </Card.Body>
-    </Card>
-  );
-}
-
-export default BasicExample;
-
-
-
 //routes
-
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Register from '../pages/register/register';
@@ -113,10 +8,19 @@ import ProdDetalies from '../components/Products/productDetailes';
 import Homepage from '../pages/home/home';
 import LogIn from '../pages/log in/logIn';
 import Cart from '../components/ShoppingCart/shopping Cart';
+import { useSelector } from 'react-redux';
 
 export default function AppRoute() {
+  const checkRedux =useSelector((state)=>(state.myLang.lang))
+  const MyTheme = useSelector((state) => state.myTheme.theme);
+
+
   return (
     <BrowserRouter>
+      <div className={MyTheme === "light" ? "text-dark bg-light" : "text-light bg-dark"}>
+
+          <div dir={checkRedux==="EN"? "ltr":"rtl"}>
+
       <NavBar />
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
@@ -129,49 +33,92 @@ export default function AppRoute() {
           <Route path="*" element={<NotfoundPage />} />
         </Routes>
       </Suspense>
+      </div>
+      </div>
+
     </BrowserRouter>
   );
 }
 
 
 
-//product detailes
+//nav NavBar
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import { Link } from'react-router-dom'; // Import Link from react-router-dom
+import { changeLanguage } from '../../store/actions/lang_action';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeTheme } from '../../store/actions/theme_action';
 
 
+function ColorSchemesExample() {
 
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import MyCard from '../../components/card/cards';
+  const MyLang=useSelector((state)=>state.myLang.lang)
+  const  Theme = useSelector((state) => state.myTheme.theme);
 
-function ACompany() {
-  const params = useParams();
-  const [Detailes, setDetailes] = useState({});
-
-  useEffect(() => {
-    axios
-      .get(`https://retoolapi.dev/GEatlr/data/${params.id}`)
-      .then((res) => {
-        setDetailes(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [params.id]);
+  const dispatch = useDispatch();
+ const  handleLangChange =() =>{
+   dispatch(changeLanguage(MyLang==="EN"?"AR":"EN"));
+ }
+ const handleThemeChange = () => {
+  console.log("clicked");
+  dispatch(changeTheme(Theme === "light" ? "dark" : "light")); // Ensure consistent case
+};
 
   return (
     <>
-      <h1>Company Detailes</h1>
-      <MyCard
-        name={Detailes.name}
-        logo={Detailes.logo}
-        about={Detailes.about}
-        location={Detailes.location}
-        size={Detailes.size}
-        width={"60rem"}
-      />
+      <Navbar bg="dark" data-bs-theme="dark">
+        <Container>
+          <Navbar.Brand as={Link} to="/">Home</Navbar.Brand>
+          <Nav className="me-auto">
+            <Nav.Link as={Link} to="/register">Register</Nav.Link>
+            <Nav.Link as={Link} to="/login">log in</Nav.Link>
+            <Nav.Link  as={Link} to="/cart">cart</Nav.Link>
+            <Nav.Link onClick={handleLangChange}>{MyLang}</Nav.Link>
+            <Nav.Link  onClick={handleThemeChange}>{Theme}</Nav.Link>
+
+
+          </Nav>
+        </Container>
+      </Navbar>
+      
     </>
   );
 }
 
-export default ACompany;
+export default ColorSchemesExample;
+
+
+
+//lan reducer
+
+
+const INITIAL_VALUE={
+    lang:"EN"
+    }
+    
+    export default function Reducer (state=INITIAL_VALUE,action){
+        switch(action.type){
+            case "CHANGE_LANG":
+                console.log("CHANGE_LANG", lang)
+                return {
+                    ...state,
+                    lang:action.payload
+                }
+    
+    
+        }
+    }  
+//lan action
+
+export const changeLanguage =(payload) => {
+
+    return {
+        type:"CHANGE_LANG",
+        payload
+    }
+}
+
+
+

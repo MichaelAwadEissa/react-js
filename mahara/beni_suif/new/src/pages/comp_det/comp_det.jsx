@@ -1,37 +1,39 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import { useParams } from 'react-router-dom';
 import MyCard from '../../components/cards';
-function  ACompany() {
 
-    const params =useParams();
-    console.log(params.id)
-    const [Detailes,setDetailes]=useState({});
+function ACompany() {
+    const { id } = useParams(); // Destructure id from useParams
+    const [details, setDetails] = useState({});
 
     useEffect(() => {
-        axios.get(`https://retoolapi.dev/GEatlr/data/${params.id}`)
+        axios.get(`https://retoolapi.dev/GEatlr/data/${id}`)
             .then((res) => {
-                setDetailes(res.data);
+                setDetails(res.data);
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
             });
-    }, []);
+    }, [id]); // Include id in dependency array
 
     return (
-
         <>
-        
-        <h1>Company Detailes</h1>
-        <MyCard name={Detailes.name}
-        logo={Detailes.logo} about={Detailes.about}
-        location={Detailes.location}
-        size={Detailes.size} width={"60rem"}/>
-
+            <h1>Company Details</h1>
+            {details.name ? ( // Conditional rendering based on the presence of details
+                <MyCard
+                    name={details.name}
+                    logo={details.logo}
+                    about={details.about}
+                    location={details.location}
+                    size={details.size}
+                    width={"60rem"}
+                />
+            ) : (
+                <p>Loading...</p>
+            )}
         </>
-    )
-
-
+    );
 }
 
-export default  ACompany;
+export default ACompany;

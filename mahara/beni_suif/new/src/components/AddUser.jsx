@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import MyTitle from './MyTitle'; // Make sure the path is correct
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 // import {useParams} from 'react-router-dom';
 
 function AddUser() {
   const location = useLocation();
   console.log(location);
-  const history = useHistory(); // Corrected case here
+  const history = useNavigate(); // Corrected case here
   // const params = useParams();
   const [Info, setInfo] = useState({
     name: 'aya',

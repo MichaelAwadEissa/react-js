@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import MyCard from '../../components/cards';
+import { useSelector } from "react-redux";
 
 function Companies() {
+
+const MyLang =useSelector((state)=>(state.lang))
+
     const [companies, setCompanies] = useState([]);
 
     useEffect(() => {
@@ -15,8 +19,13 @@ function Companies() {
             });
     }, []);
 
-    return (
+
+
+
+    return ( 
         <>
+
+        <h1 className="text-primary">My Language is : {MyLang}</h1>
             <h1>List of Companies</h1>
             <ul> 
                 {companies.map((company,index) => {
